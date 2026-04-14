@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         @auth
       <div class="navbar-nav col-lg-4 justify-content-start">
-        <span class="navbar-brand">Welcome {{Auth::user()->name}}</span>
+        <a class="navbar-brand" href="{{route('welcome')}}">Welcome {{Auth::user()->name}}</a>
     </div>
     @endauth
     
@@ -15,13 +15,13 @@
     @auth
     <ul class="navbar-nav col-lg-2 justify-content-center">
         <li class="nav-item">
-            <a class="nav-link" href="">Articles</a>
+            <a class="nav-link" href="{{route('article.index')}}">Articles</a>
         </li>
         </ul>
 
     <ul class="navbar-nav col-lg-2 justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="">Add new</a>
+                <a class="nav-link" href="{{route('article.create')}}">Add new</a>
             </li>
         </ul>
         <ul class="navbar-nav col-lg-4 justify-content-end">
@@ -36,7 +36,7 @@
     @guest
 <ul class="navbar-nav col-lg-5 justify-content-center">
         <li class="nav-item">
-            <a class="nav-link" href="">Articles</a>
+            <a class="nav-link" href="{{route('article.index')}}">Articles</a>
         </li>
         </ul>
 
