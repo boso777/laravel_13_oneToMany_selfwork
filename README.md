@@ -114,6 +114,13 @@ npm run dev
 Visit `http://localhost:8000` in your browser.
 
 ---
+## Screenshoots
+
+<img width="1815" height="899" alt="Screenshot 2026-04-08 alle 11 10 27" src="https://github.com/user-attachments/assets/2a61a12f-6a59-4cc9-aaff-d89ce6aeef0d" />
+<img width="1831" height="903" alt="Screenshot 2026-04-08 alle 11 11 36" src="https://github.com/user-attachments/assets/1263ad98-5dbf-4d7e-8287-b752085d3d6a" />
+<img width="1841" height="902" alt="Screenshot 2026-04-08 alle 11 12 07" src="https://github.com/user-attachments/assets/dd79be86-3ae0-4b9c-8667-69e177dacb65" />
+<img width="1838" height="892" alt="Screenshot 2026-04-08 alle 11 13 25" src="https://github.com/user-attachments/assets/e2d05220-ceb2-45aa-8c5e-f97fa8b75e89" />
+
 
 
 ## About
