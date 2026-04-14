@@ -1,58 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MVC Blog — A Blog Platform Built with Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-stack blog application built with **Laravel** and **Bootstrap**, developed as part of a full-stack web development program. The project focuses on backend architecture and covers the complete lifecycle of a web application: database design, server-side routing, MVC pattern, and a clean responsive UI.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## What This Project Does
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+MVC Blog allows users to create, read, edit, and delete blog articles through a clean web interface. Every article is stored in a MySQL database and served dynamically via Laravel's templating engine.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Core features:**
+- Browse all published articles on a dedicated index page
+- Read each article on its own detail page
+- Write new articles through a validated form — authenticated users only
+- Edit existing articles with pre-filled fields — authenticated users only
+- Delete articles with a confirmation prompt — authenticated users only
+- User registration and login powered by Laravel Fortify
+- Flash notifications on every user action (create, update, delete)
+- Responsive layout powered by Bootstrap, bundled with Vite
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tech Stack
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Layer | Technology |
+|---|---|
+| Backend | PHP 8 / Laravel 11 |
+| Frontend | Blade Templates, Bootstrap 5 |
+| Build Tool | Vite |
+| Database | MySQL |
+| Architecture | MVC (Model–View–Controller) |
+| Authentication | Laravel Fortify |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Project Structure
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+The application follows Laravel's standard MVC pattern:
 
-```bash
-composer require laravel/boost --dev
+- **Model** (`Article`) — represents the article data and handles database interaction
+- **Controller** (`PublicController`) — contains all the logic for each page and action
+- **Views** — Blade templates that render the HTML, using a shared layout with reusable components (navbar, footer)
+- **Routes** — map URLs to controller methods using Laravel's RESTful resource conventions
 
-php artisan boost:install
+---
+
+## Authentication & Middleware
+
+User authentication is handled by **Laravel Fortify**, which provides the backend logic for registration, login, and session management without imposing a fixed UI — the views are custom-built with Blade and Bootstrap.
+
+Write, edit, and delete actions are protected by Laravel's built-in `auth` middleware. Unauthenticated users attempting to access those routes are automatically redirected to the login page.
+
+| Action | Protected |
+|---|---|
+| Browse & read articles | Public |
+| Create a new article | ✅ Auth required |
+| Edit an article | ✅ Auth required |
+| Delete an article | ✅ Auth required |
+
+The middleware is applied directly at the route level, keeping authorization logic centralized and separate from controller code:
+
+```php
+Route::middleware('auth')->group(function () {
+    Route::get('/articles/create', [PublicController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [PublicController::class, 'store'])->name('articles.store');
+    Route::get('/articles/{article}/edit', [PublicController::class, 'edit'])->name('articles.edit');
+    Route::put('/articles/{article}', [PublicController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [PublicController::class, 'destroy'])->name('articles.destroy');
+});
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Pages & Routes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Page | URL | Description |
+|---|---|---|
+| Homepage | `/` | Landing page with latest articles |
+| All Articles | `/articles` | Lists every article in the database |
+| New Article | `/articles/create` | Form to write and publish a new article |
+| Article Detail | `/articles/{id}` | Full content of a single article |
+| Edit Article | `/articles/{id}/edit` | Pre-filled form to update an article |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## What I Practiced
 
-## Security Vulnerabilities
+- Designing a relational database schema and writing Laravel migrations
+- Implementing full **CRUD** logic following REST conventions
+- Using **Route Model Binding** to simplify controller code
+- Handling **form validation** server-side with error feedback in the UI
+- Structuring reusable UI with Blade **components** and a shared layout
+- Managing frontend assets with **Vite** and integrating Bootstrap via npm
+- Protecting forms with **CSRF tokens** and spoofing HTTP verbs (PUT, DELETE)
+- Implementing user authentication with **Laravel Fortify**
+- Restricting routes with **middleware** to separate public and protected areas
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## How to Run Locally
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Clone the repository
+git clone https://github.com/your-username/mvc-blog.git
+cd mvc-blog
+
+# Install PHP dependencies
+composer install
+
+# Install JS dependencies
+npm install
+
+# Copy environment config and generate app key
+cp .env.example .env
+php artisan key:generate
+
+# Set up your database credentials in .env, then run migrations
+php artisan migrate
+
+# Start the development servers
+php artisan serve
+npm run dev
+```
+
+Visit `http://localhost:8000` in your browser.
+
+---
+
+
+## About
+
+Open to junior frontend and full-stack opportunities — feel free to reach out.
