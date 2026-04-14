@@ -65,10 +65,10 @@ Write, edit, and delete actions are protected by Laravel's built-in `auth` middl
 | Page | URL | Description |
 |---|---|---|
 | Homepage | `/` | Landing page with latest articles |
-| All Articles | `/articles` | Lists every article in the database |
+| All Articles | `/articles/index` | Lists every article in the database |
 | New Article | `/articles/create` | Form to write and publish a new article |
-| Article Detail | `/articles/{id}` | Full content of a single article |
-| Edit Article | `/articles/{id}/edit` | Pre-filled form to update an article |
+| Article Detail | `/articles/{article}` | Full content of a single article |
+| Edit Article | `/articles/{article}/edit` | Pre-filled form to update an article |
 
 ---
 
