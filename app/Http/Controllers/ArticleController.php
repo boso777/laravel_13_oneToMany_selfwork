@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -13,7 +14,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        if(auth()->user()){
+        $articles = auth()->user()->articles;
+        }else{
+            return redirect(route('login'));
+        }
+
         return view('Articles.index' , compact('articles'));
     }
 
@@ -34,6 +40,7 @@ class ArticleController extends Controller
         $data = [
             'name' => $request->name,
             'description' => $request->description,
+            'user_id' => Auth::user()->id,
         ];
 
         if($request->hasFile('img')){

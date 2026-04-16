@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$article->name}}</h5>
                         <p class="card-text">{{$article->description}}</p>
-                        <a href="{{route('article.show' , $article)}}" class="btn btn-primary">See more about {{$article->name}}</a>
+                        <a href="{{route('article.show' , $article)}}" class="btn btn-primary">See more about{{$article->name}}</a>
                     </div>
                 </div>
             </div>
